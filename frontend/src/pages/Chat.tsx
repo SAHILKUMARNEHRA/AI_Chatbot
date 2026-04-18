@@ -32,7 +32,7 @@ export default function Chat() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8000/chat', {
+      const response = await fetch('https://ai-chatbot-0a38.onrender.com/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ export default function Chat() {
                             Visual Context
                           </div>
                           <img 
-                            src={`http://localhost:8000/assets/${msg.image.filename}`} 
+                            src={`https://ai-chatbot-0a38.onrender.com/assets/${msg.image.filename}`} 
                             alt={msg.image.title || "Context"} 
                             className="rounded-lg max-h-64 object-contain"
                           />
