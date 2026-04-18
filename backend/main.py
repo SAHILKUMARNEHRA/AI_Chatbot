@@ -52,7 +52,14 @@ async def upload(file: UploadFile = File(...)):
         chunks = chunk_text(text)
         index = create_embeddings(chunks)
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Failed to process PDF: {str(e)}")
+        # In case the HF API fails to embed, we still want the user to be able to chat
+        # So we'll provide an empty index and empty chunks
+        print(f"Warning: Embedding failed, continuing without vector search. Error: {e}")
+        import faiss
+        import numpy as np
+        chunks = ["The PDF was uploaded, but text extraction or embedding failed."]
+        index = faiss.IndexFlatL2(384)
+        index.add(np.random.rand(1, 384).astype("float32"))
 
     STORE[topic_id] = {
         "chunks": chunks,
