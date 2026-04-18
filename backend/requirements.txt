@@ -4,6 +4,5 @@ python-multipart
 python-dotenv
 pymupdf
 faiss-cpu
-sentence-transformers
 numpy
 requests
